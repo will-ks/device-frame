@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-const IphoneX: FC<{ url: string }> = ({ url }) => {
+const IphoneX: FC = ({ children }) => {
   return (
     <div className="marvel-device iphone-x">
       <div className="notch">
@@ -18,13 +18,7 @@ const IphoneX: FC<{ url: string }> = ({ url }) => {
         <div className="shadow shadow--bl"></div>
       </div>
       <div className="inner-shadow"></div>
-      <div className="screen">
-        <iframe
-          title={'Framed site'}
-          style={{ height: '100%', width: '100%' }}
-          src={decodeURIComponent(url)}
-        />
-      </div>
+      <div className="screen">{children}</div>
     </div>
   )
 }

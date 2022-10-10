@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import IphoneXPage from './IphoneXPage'
+import Iphone14Pro from './Iphone14Pro'
 
 //   Improve this test with help from the Redwood Testing Doc:
-//   https://redwoodjs.com/docs/testing#testing-pages-layouts
+//    https://redwoodjs.com/docs/testing#testing-components
 
-describe('IphoneXPage', () => {
+describe('Iphone14Pro', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<IphoneXPage />)
+      render(<Iphone14Pro />)
     }).not.toThrow()
   })
 })

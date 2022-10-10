@@ -9,10 +9,12 @@
 
 import { Route, Router } from '@redwoodjs/router'
 
+import FramePage from 'src/pages/FramePage/FramePage'
+
 const Routes = () => {
   return (
     <Router>
-      <Route path="/{url...}" page={IphoneXPage} name="iphoneX" />
+      <Route path="/{routeGlob...}" page={FramePage} name="frame" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )

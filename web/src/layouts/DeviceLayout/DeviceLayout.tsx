@@ -23,11 +23,9 @@ const DeviceLayout: FC<{
       >
         <div
           style={{
-            transform: `scale(calc(${
-              height - padding
-            } / ${deviceScreenHeight}))`,
+            transform: `scale(${(height - padding) / deviceScreenHeight})`,
           }}
-          className={'deviceFrame'}
+          id={'device-frame'}
         >
           {children}
         </div>
