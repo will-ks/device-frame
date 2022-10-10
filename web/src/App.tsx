@@ -5,6 +5,8 @@ import 'normalize.css/normalize.css'
 
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
+import './devices.min.css'
+import './index.css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
