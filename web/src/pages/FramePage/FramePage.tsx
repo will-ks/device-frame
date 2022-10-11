@@ -2,6 +2,8 @@ import { FC } from 'react'
 
 import { useTimeout } from 'react-use'
 
+import { useLocation } from '@redwoodjs/router'
+
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
 import DeviceLayout, {
   Attribution,
@@ -54,6 +56,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
         : routeGlob,
     }
   })()
+  const { search, hash } = useLocation()
   const [loadingTookTooLong] = useTimeout(4_000)
   if (!isValidUrl(url)) {
     return <NotFoundPage />
@@ -76,7 +79,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                 backgroundColor: '#242424',
                 zIndex: 1,
               }}
-              src={decodeURIComponent(url)}
+              src={`${url}${search ?? ''}${hash ?? ''}`}
             />
             {loadingTookTooLong() && (
               <div
