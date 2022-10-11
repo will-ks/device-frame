@@ -80,7 +80,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                 width: '100%',
                 borderRadius: 'inherit',
                 backgroundColor: '#242424',
-                zIndex: 1,
+                zIndex: -1,
                 boxShadow: darkMode
                   ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
                   : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
@@ -95,6 +95,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                   textAlign: 'center',
                   width: '100%',
                   color: 'var(--text-main-dark)',
+                  zIndex: -2,
                 }}
               >
                 Seems like the iframe may be having trouble loading. Check the

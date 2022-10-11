@@ -14,7 +14,6 @@ const Iphone14Pro: FC = ({ children }) => {
     >
       <Cutout
         style={{
-          zIndex: 2,
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
