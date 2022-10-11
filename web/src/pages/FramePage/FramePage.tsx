@@ -5,6 +5,7 @@ import { useMedia, useTimeout } from 'react-use'
 import { useLocation } from '@redwoodjs/router'
 
 import GalaxyNote8 from 'src/components/GalaxyNote8/GalaxyNote8'
+import IpadMini from 'src/components/IpadMini/IpadMini'
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
 import Iphone8 from 'src/components/Iphone8/Iphone8'
 import IphoneX from 'src/components/IphoneX/IphoneX'
@@ -82,6 +83,25 @@ export const devices: {
     },
     padding: 260,
     component: ({ children }) => <Iphone8>{children}</Iphone8>,
+  },
+  'ipad-mini': {
+    name: 'iPad mini',
+    logicalSize: {
+      width: 768,
+      height: 1024,
+    },
+    attribution: {
+      imageName: 'iPad mini frame',
+      imageUrl: 'https://github.com/marvelapp/devices.css',
+      authorUrl: 'https://github.com/marvelapp',
+      authorName: 'Marvelapp',
+      licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+      licenceName: 'MIT',
+      trademarkString:
+        'iPad® and iPad mini® are trademarks of Apple Inc., registered in the U.S. and other countries.',
+    },
+    padding: 40,
+    component: ({ children }) => <IpadMini>{children}</IpadMini>,
   },
   'galaxy-note-8': {
     name: 'Galaxy Note 8',
