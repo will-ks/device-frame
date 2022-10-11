@@ -6,6 +6,7 @@ import { useLocation } from '@redwoodjs/router'
 
 import GalaxyNote8 from 'src/components/GalaxyNote8/GalaxyNote8'
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
+import Iphone8 from 'src/components/Iphone8/Iphone8'
 import IphoneX from 'src/components/IphoneX/IphoneX'
 import DeviceLayout, {
   Attribution,
@@ -62,6 +63,25 @@ export const devices: {
     },
     padding: 120,
     component: ({ children }) => <IphoneX>{children}</IphoneX>,
+  },
+  iphone8: {
+    name: 'iPhone 8',
+    logicalSize: {
+      width: 375,
+      height: 667,
+    },
+    attribution: {
+      imageName: 'iPhone 8 frame',
+      imageUrl: 'https://github.com/marvelapp/devices.css',
+      authorUrl: 'https://github.com/marvelapp',
+      authorName: 'Marvelapp',
+      licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+      licenceName: 'MIT',
+      trademarkString:
+        'iPhone® is a trademark of Apple Inc., registered in the U.S. and other countries.',
+    },
+    padding: 260,
+    component: ({ children }) => <Iphone8>{children}</Iphone8>,
   },
   galaxyNote8: {
     name: 'Galaxy Note 8',
