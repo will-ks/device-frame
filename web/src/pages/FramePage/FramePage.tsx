@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useTimeout } from 'react-use'
+import { useMedia, useTimeout } from 'react-use'
 
 import { useLocation } from '@redwoodjs/router'
 
@@ -59,6 +59,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
     }
   })()
   const { search, hash } = useLocation()
+  const darkMode = useMedia('(prefers-color-scheme: dark)')
   const [loadingTookTooLong] = useTimeout(4_000)
   if (!isValidUrl(url)) {
     return <NotFoundPage />
@@ -80,6 +81,9 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                 borderRadius: 'inherit',
                 backgroundColor: '#242424',
                 zIndex: 1,
+                boxShadow: darkMode
+                  ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
+                  : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
               }}
               src={`${url}${search ?? ''}${hash ?? ''}`}
             />
