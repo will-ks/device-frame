@@ -10,6 +10,7 @@ const Iphone14Pro: FC = ({ children }) => {
         width: '440px',
         height: '892px',
         position: 'relative',
+        zIndex: 0,
       }}
     >
       <Cutout
@@ -31,6 +32,7 @@ const Iphone14Pro: FC = ({ children }) => {
           left: '23px',
           top: '20px',
           borderRadius: '20px',
+          zIndex: -1,
         }}
       >
         {children}
