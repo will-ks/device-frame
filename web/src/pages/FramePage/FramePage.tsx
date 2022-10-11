@@ -5,6 +5,7 @@ import { useMedia, useTimeout } from 'react-use'
 import { useLocation } from '@redwoodjs/router'
 
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
+import IphoneX from 'src/components/IphoneX/IphoneX'
 import DeviceLayout, {
   Attribution,
 } from 'src/layouts/DeviceLayout/DeviceLayout'
@@ -20,6 +21,7 @@ export const devices: {
     }
     attribution: Attribution
     component: FC
+    padding?: number
   }
 } = {
   iphone: {
@@ -40,6 +42,25 @@ export const devices: {
         'iPhone® is a trademark of Apple Inc., registered in the U.S. and other countries.',
     },
     component: ({ children }) => <Iphone14Pro>{children}</Iphone14Pro>,
+  },
+  iphoneX: {
+    name: 'iPhone X',
+    logicalSize: {
+      width: 375,
+      height: 812,
+    },
+    attribution: {
+      imageName: 'iPhone X frame',
+      imageUrl: 'https://github.com/marvelapp/devices.css',
+      authorUrl: 'https://github.com/marvelapp',
+      authorName: 'Marvelapp',
+      licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+      licenceName: 'MIT',
+      trademarkString:
+        'iPhone® is a trademark of Apple Inc., registered in the U.S. and other countries.',
+    },
+    padding: 120,
+    component: ({ children }) => <IphoneX>{children}</IphoneX>,
   },
 }
 
@@ -68,6 +89,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
     <DeviceLayout
       deviceScreenHeight={device.logicalSize.height}
       attribution={device.attribution}
+      padding={device.padding}
     >
       {device.component({
         children: (
