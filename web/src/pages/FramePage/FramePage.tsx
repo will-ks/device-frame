@@ -45,7 +45,7 @@ export const devices: {
     },
     component: ({ children }) => <Iphone14Pro>{children}</Iphone14Pro>,
   },
-  iphoneX: {
+  'iphone-x': {
     name: 'iPhone X',
     logicalSize: {
       width: 375,
@@ -64,7 +64,7 @@ export const devices: {
     padding: 120,
     component: ({ children }) => <IphoneX>{children}</IphoneX>,
   },
-  iphone8: {
+  'iphone-8': {
     name: 'iPhone 8',
     logicalSize: {
       width: 375,
@@ -83,7 +83,7 @@ export const devices: {
     padding: 260,
     component: ({ children }) => <Iphone8>{children}</Iphone8>,
   },
-  galaxyNote8: {
+  'galaxy-note-8': {
     name: 'Galaxy Note 8',
     logicalSize: {
       width: 414,
