@@ -11,49 +11,64 @@ export type Attribution = {
   imageUrl: string
   licenceName: string
   licenceUrl: string
+  trademarkString: string
 }
 
 const DeviceLayout: FC<{
   deviceScreenHeight: number
   padding?: number
   attribution: Attribution
-}> = ({ deviceScreenHeight, padding = 80, children, attribution }) => {
+}> = ({ deviceScreenHeight, padding = 100, children, attribution }) => {
   const { height } = useWindowSize()
 
   return (
     <BaseLayout>
-      <div
+      <figure
         style={{
-          display: 'flex',
-          height: '100%',
           width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
+          height: '100%',
+          margin: 0,
         }}
       >
         <div
           style={{
-            transform: `scale(${(height - padding) / deviceScreenHeight})`,
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          id={'device-frame'}
         >
-          {children}
+          <div
+            style={{
+              transform: `scale(${(height - padding) / deviceScreenHeight})`,
+            }}
+            id={'device-frame'}
+          >
+            {children}
+          </div>
         </div>
-      </div>
-      <footer
-        style={{
-          fontSize: 'x-small',
-          position: 'absolute',
-          bottom: '0.1rem',
-          right: '0.5rem',
-        }}
-      >
-        {`"`}
-        <a href={attribution.imageUrl}>{attribution.imageName}</a>
-        {`"`} by <a href={attribution.authorUrl}>{attribution.authorName}</a> is
-        licensed under{' '}
-        <a href={attribution.licenceUrl}>{attribution.licenceName}</a>.
-      </footer>
+        <footer
+          style={{
+            fontSize: 'x-small',
+            position: 'absolute',
+            bottom: '0.1rem',
+            right: '0.5rem',
+          }}
+        >
+          <figcaption>
+            <div>
+              {`"`}
+              <a href={attribution.imageUrl}>{attribution.imageName}</a>
+              {`"`} by{' '}
+              <a href={attribution.authorUrl}>{attribution.authorName}</a> is
+              licensed under{' '}
+              <a href={attribution.licenceUrl}>{attribution.licenceName}</a>.
+            </div>
+            <div>{attribution.trademarkString}</div>
+          </figcaption>
+        </footer>
+      </figure>
     </BaseLayout>
   )
 }

@@ -36,6 +36,8 @@ export const devices: {
       authorName: 'Rafael Fernandez',
       licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
       licenceName: 'CC BY-SA 4.0',
+      trademarkString:
+        'iPhone® is a trademark of Apple Inc., registered in the U.S. and other countries.',
     },
     component: ({ children }) => <Iphone14Pro>{children}</Iphone14Pro>,
   },
