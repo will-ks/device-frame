@@ -20,6 +20,8 @@
   --form-text: #1d1d1d;
   --variable: #39a33c;
   --highlight: #ff0;
+  --device-header: rgb(239, 239, 244);
+  --device-header-dark: rgb(0, 0, 0);
 }
 
 #framed-site {

@@ -29,6 +29,7 @@ const Iphone14Pro: FC = ({ children }) => {
           maxHeight: '852px',
           position: 'absolute',
           display: 'flex',
+          flexDirection: 'column',
           left: '23px',
           top: '20px',
           borderRadius: '20px',

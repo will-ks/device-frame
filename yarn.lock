@@ -92,6 +92,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@arrows/composition@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@arrows/composition@npm:1.2.2"
+  checksum: d8b07682b2f6cba12a8d8e1bec0457acc6456683c2f1fa7377680be11990377a4c089eb7c5bb597c90a25754a2237ad6bba5a41f21924d247c9702cc994df87c
+  languageName: node
+  linkType: hard
+
 "@babel/cli@npm:7.18.10":
   version: 7.18.10
   resolution: "@babel/cli@npm:7.18.10"
@@ -23684,6 +23691,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@arrows/composition": ^1.2.2
     "@redwoodjs/forms": 3.1.1
     "@redwoodjs/router": 3.1.1
     "@redwoodjs/web": 3.1.1

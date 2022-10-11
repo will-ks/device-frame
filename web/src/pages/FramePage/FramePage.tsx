@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import pipeNow from '@arrows/composition/pipeNow'
 import { useMedia, useTimeout } from 'react-use'
 
 import { useLocation } from '@redwoodjs/router'
@@ -12,8 +13,13 @@ import IphoneX from 'src/components/IphoneX/IphoneX'
 import DeviceLayout, {
   Attribution,
 } from 'src/layouts/DeviceLayout/DeviceLayout'
-import { isValidUrl } from 'src/lib/url-helpers'
+import { isValidColor, isValidUrl } from 'src/lib/helpers'
 import NotFoundPage from 'src/pages/NotFoundPage/NotFoundPage'
+
+export enum DisplayMode {
+  Fullscreen = 'fullscreen',
+  Standalone = 'standalone',
+}
 
 export const devices: {
   [deviceId: string]: {
@@ -22,6 +28,7 @@ export const devices: {
       width: number
       height: number
     }
+    headerHeight: number
     attribution: Attribution
     component: FC
     padding?: number
@@ -33,6 +40,7 @@ export const devices: {
       width: 393,
       height: 852,
     },
+    headerHeight: 54,
     attribution: {
       imageName: 'iPhone 14 Pro vector',
       imageUrl:
@@ -52,6 +60,7 @@ export const devices: {
       width: 375,
       height: 812,
     },
+    headerHeight: 44,
     attribution: {
       imageName: 'iPhone X frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -71,6 +80,7 @@ export const devices: {
       width: 375,
       height: 667,
     },
+    headerHeight: 40,
     attribution: {
       imageName: 'iPhone 8 frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -90,6 +100,7 @@ export const devices: {
       width: 768,
       height: 1024,
     },
+    headerHeight: 20,
     attribution: {
       imageName: 'iPad mini frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -109,6 +120,7 @@ export const devices: {
       width: 414,
       height: 846,
     },
+    headerHeight: 44,
     attribution: {
       imageName: 'Galaxy Note 8 frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -122,24 +134,72 @@ export const devices: {
 }
 
 const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
-  const { device, url } = (() => {
-    const firstPartOfRouteGlob = routeGlob.split('/')[0]
-    const firstPartOfRouteGlobIsDeviceName =
-      Object.keys(devices).includes(firstPartOfRouteGlob)
-    return {
-      device:
-        devices[
-          firstPartOfRouteGlobIsDeviceName ? firstPartOfRouteGlob : 'iphone'
-        ],
-      url: firstPartOfRouteGlobIsDeviceName
-        ? routeGlob.split('/').slice(1).join('/')
-        : routeGlob,
-    }
-  })()
   const { search, hash } = useLocation()
+  const { url, displayMode, headerColour, device } = pipeNow(
+    routeGlob.split('/'),
+    ([firstGlobPart, ...routeGlob]) => {
+      const deviceFromRoute =
+        Object.keys(devices).includes(firstGlobPart) && devices[firstGlobPart]
+      return deviceFromRoute
+        ? {
+            device: deviceFromRoute,
+            routeGlob,
+          }
+        : {
+            device: devices['iphone'],
+            routeGlob: [firstGlobPart, ...routeGlob],
+          }
+    },
+    ({ routeGlob: [firstGlobPart, ...routeGlob], ...rest }) => {
+      const displayModeFromRoute =
+        Object.values(DisplayMode).includes(firstGlobPart as DisplayMode) &&
+        (firstGlobPart as DisplayMode)
+      return {
+        ...(displayModeFromRoute
+          ? {
+              displayMode: displayModeFromRoute,
+              routeGlob,
+            }
+          : {
+              displayMode: DisplayMode.Fullscreen,
+              routeGlob: [firstGlobPart, ...routeGlob],
+            }),
+        ...rest,
+      }
+    },
+    ({ routeGlob: [firstGlobPart, ...routeGlob], ...rest }) => {
+      const headerColourFromRoute =
+        isValidColor(decodeURIComponent(firstGlobPart)) &&
+        decodeURIComponent(firstGlobPart)
+      return {
+        ...(headerColourFromRoute
+          ? {
+              headerColour: headerColourFromRoute,
+              routeGlob,
+            }
+          : {
+              headerColour: darkMode
+                ? 'var(--device-header-dark)'
+                : 'var(--device-header)',
+              routeGlob: [firstGlobPart, ...routeGlob],
+            }),
+        ...rest,
+      }
+    },
+    ({ routeGlob, ...rest }) => {
+      return {
+        url: isValidUrl(routeGlob.join('/'))
+          ? `${routeGlob.join('/')}${search ?? ''}${hash ?? ''}`
+          : undefined,
+        ...rest,
+      }
+    }
+  )
+
   const darkMode = useMedia('(prefers-color-scheme: dark)')
   const [loadingTookTooLong] = useTimeout(4_000)
-  if (!isValidUrl(url)) {
+
+  if (!url) {
     return <NotFoundPage />
   }
   return (
@@ -151,18 +211,36 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
       {device.component({
         children: (
           <>
+            {displayMode !== DisplayMode.Fullscreen && (
+              <div
+                style={{
+                  height: `${device.headerHeight}px`,
+                  backgroundColor: headerColour,
+                  width: '100%',
+                  borderRadius: '20px 20px 0 0',
+                }}
+              ></div>
+            )}
             <iframe
               title={'Framed site'}
               id={'framed-site'}
               style={{
-                height: '100%',
+                height: `calc(100% - ${
+                  displayMode === DisplayMode.Standalone
+                    ? device.headerHeight
+                    : 0
+                }px)`,
                 width: '100%',
-                borderRadius: 'inherit',
+                borderRadius:
+                  displayMode === DisplayMode.Fullscreen
+                    ? 'inherit'
+                    : '0 0 20px 20px',
                 backgroundColor: '#242424',
                 zIndex: -1,
-                boxShadow: darkMode
-                  ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
-                  : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
+                // TODO: Fix shadows z-index and re-enable this
+                // boxShadow: darkMode
+                //   ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
+                //   : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
               }}
               src={`${url}${search ?? ''}${hash ?? ''}`}
             />
