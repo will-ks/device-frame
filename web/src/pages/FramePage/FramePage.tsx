@@ -4,6 +4,7 @@ import { useMedia, useTimeout } from 'react-use'
 
 import { useLocation } from '@redwoodjs/router'
 
+import GalaxyNote8 from 'src/components/GalaxyNote8/GalaxyNote8'
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
 import IphoneX from 'src/components/IphoneX/IphoneX'
 import DeviceLayout, {
@@ -61,6 +62,22 @@ export const devices: {
     },
     padding: 120,
     component: ({ children }) => <IphoneX>{children}</IphoneX>,
+  },
+  galaxyNote8: {
+    name: 'Galaxy Note 8',
+    logicalSize: {
+      width: 414,
+      height: 846,
+    },
+    attribution: {
+      imageName: 'Galaxy Note 8 frame',
+      imageUrl: 'https://github.com/marvelapp/devices.css',
+      authorUrl: 'https://github.com/marvelapp',
+      authorName: 'Marvelapp',
+      licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+      licenceName: 'MIT',
+    },
+    component: ({ children }) => <GalaxyNote8>{children}</GalaxyNote8>,
   },
 }
 

@@ -11,7 +11,7 @@ export type Attribution = {
   imageUrl: string
   licenceName: string
   licenceUrl: string
-  trademarkString: string
+  trademarkString?: string
 }
 
 const DeviceLayout: FC<{
@@ -65,7 +65,9 @@ const DeviceLayout: FC<{
               licensed under{' '}
               <a href={attribution.licenceUrl}>{attribution.licenceName}</a>.
             </div>
-            <div>{attribution.trademarkString}</div>
+            {attribution.trademarkString && (
+              <div>{attribution.trademarkString}</div>
+            )}
           </figcaption>
         </footer>
       </figure>
