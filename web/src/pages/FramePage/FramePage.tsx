@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useTimeout } from 'react-use'
+
 import Iphone14Pro from 'src/components/Iphone14Pro/Iphone14Pro'
 import DeviceLayout, {
   Attribution,
@@ -52,6 +54,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
         : routeGlob,
     }
   })()
+  const [loadingTookTooLong] = useTimeout(4_000)
   if (!isValidUrl(url)) {
     return <NotFoundPage />
   }
@@ -62,12 +65,34 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
     >
       {device.component({
         children: (
-          <iframe
-            title={'Framed site'}
-            id={'framed-site'}
-            style={{ height: '100%', width: '100%', borderRadius: 'inherit' }}
-            src={decodeURIComponent(url)}
-          />
+          <>
+            <iframe
+              title={'Framed site'}
+              id={'framed-site'}
+              style={{
+                height: '100%',
+                width: '100%',
+                borderRadius: 'inherit',
+                backgroundColor: '#242424',
+                zIndex: 1,
+              }}
+              src={decodeURIComponent(url)}
+            />
+            {loadingTookTooLong() && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  textAlign: 'center',
+                  width: '100%',
+                  color: 'var(--text-main-dark)',
+                }}
+              >
+                Seems like the iframe may be having trouble loading. Check the
+                developer console.
+              </div>
+            )}
+          </>
         ),
       })}
     </DeviceLayout>
