@@ -17,6 +17,7 @@
     "@redwoodjs/forms": "3.1.1",
     "@redwoodjs/router": "3.1.1",
     "@redwoodjs/web": "3.1.1",
+    "mvp.css": "^1.12.0",
     "normalize.css": "^8.0.1",
     "prop-types": "15.8.1",
     "react": "17.0.2",

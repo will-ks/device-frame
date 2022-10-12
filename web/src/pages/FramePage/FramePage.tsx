@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import pipeNow from '@arrows/composition/pipeNow'
-import { useMedia, useTimeout } from 'react-use'
+import { useTimeout } from 'react-use'
 
 import { useLocation } from '@redwoodjs/router'
 
@@ -23,6 +23,7 @@ export enum DisplayMode {
 
 export const devices: {
   [deviceId: string]: {
+    id: string
     name: string
     logicalSize: {
       width: number
@@ -35,6 +36,7 @@ export const devices: {
   }
 } = {
   iphone: {
+    id: 'iphone',
     name: 'iPhone 14 Pro',
     logicalSize: {
       width: 393,
@@ -55,6 +57,7 @@ export const devices: {
     component: ({ children }) => <Iphone14Pro>{children}</Iphone14Pro>,
   },
   'iphone-x': {
+    id: 'iphone-x',
     name: 'iPhone X',
     logicalSize: {
       width: 375,
@@ -75,6 +78,7 @@ export const devices: {
     component: ({ children }) => <IphoneX>{children}</IphoneX>,
   },
   'iphone-8': {
+    id: 'iphone-8',
     name: 'iPhone 8',
     logicalSize: {
       width: 375,
@@ -95,6 +99,7 @@ export const devices: {
     component: ({ children }) => <Iphone8>{children}</Iphone8>,
   },
   'ipad-mini': {
+    id: 'ipad-mini',
     name: 'iPad mini',
     logicalSize: {
       width: 768,
@@ -115,6 +120,7 @@ export const devices: {
     component: ({ children }) => <IpadMini>{children}</IpadMini>,
   },
   'galaxy-note-8': {
+    id: 'galaxy-note-8',
     name: 'Galaxy Note 8',
     logicalSize: {
       width: 414,
@@ -133,6 +139,12 @@ export const devices: {
   },
 }
 
+export const DEFAULTS = {
+  device: 'iphone',
+  displayMode: DisplayMode.Fullscreen,
+  headerColour: '#EFEFF4',
+}
+
 const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
   const { search, hash } = useLocation()
   const { url, displayMode, headerColour, device } = pipeNow(
@@ -146,7 +158,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
             routeGlob,
           }
         : {
-            device: devices['iphone'],
+            device: devices[DEFAULTS.device],
             routeGlob: [firstGlobPart, ...routeGlob],
           }
     },
@@ -161,7 +173,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
               routeGlob,
             }
           : {
-              displayMode: DisplayMode.Fullscreen,
+              displayMode: DEFAULTS.displayMode,
               routeGlob: [firstGlobPart, ...routeGlob],
             }),
         ...rest,
@@ -178,9 +190,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
               routeGlob,
             }
           : {
-              headerColour: darkMode
-                ? 'var(--device-header-dark)'
-                : 'var(--device-header)',
+              headerColour: DEFAULTS.headerColour,
               routeGlob: [firstGlobPart, ...routeGlob],
             }),
         ...rest,
@@ -196,7 +206,6 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
     }
   )
 
-  const darkMode = useMedia('(prefers-color-scheme: dark)')
   const [loadingTookTooLong] = useTimeout(4_000)
 
   if (!url) {
@@ -207,6 +216,8 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
       deviceScreenHeight={device.logicalSize.height}
       attribution={device.attribution}
       padding={device.padding}
+      url={url}
+      deviceId={device.id}
     >
       {device.component({
         children: (

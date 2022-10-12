@@ -1,8 +1,7 @@
 import { FatalErrorBoundary, MetaTags, RedwoodProvider } from '@redwoodjs/web'
 import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
 
-import 'normalize.css/normalize.css'
-
+import 'mvp.css/mvp.css'
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 import './devices.min.css'

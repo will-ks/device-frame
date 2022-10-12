@@ -20,8 +20,6 @@
   --form-text: #1d1d1d;
   --variable: #39a33c;
   --highlight: #ff0;
-  --device-header: rgb(239, 239, 244);
-  --device-header-dark: rgb(0, 0, 0);
 }
 
 #framed-site {
@@ -34,32 +32,6 @@
   display: none; /* Safari and Chrome */
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
-    sans-serif;
-  line-height: 1.4;
-  word-wrap: break-word;
-  color: var(--text-main);
-  background: var(--background-body);
-  text-rendering: optimizeLegibility;
-}
-
-a {
-  text-decoration: none;
-  color: var(--links);
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background: var(--background-body-dark);
-    color: var(--text-main-dark);
-  }
-  a {
-    color: var(--links-dark);
-  }
+footer, header, main {
+  padding: 0 /* Override mvp.css padding */
 }

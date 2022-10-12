@@ -3,7 +3,7 @@ type BaseLayoutProps = {
 }
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
-  return <main style={{ height: '100vh', width: '100vw' }}>{children}</main>
+  return <>{children}</>
 }
 
 export default BaseLayout

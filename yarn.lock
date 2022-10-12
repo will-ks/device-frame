@@ -17371,6 +17371,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mvp.css@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "mvp.css@npm:1.12.0"
+  checksum: 667ee89bbb853e6cbc031692345415d822470a7810b110c7aafe016ca65904c9d2fcc476e2baafd244c5be32dbea3a83aa47014305f3297102bb92eea3facba8
+  languageName: node
+  linkType: hard
+
 "nan@npm:^2.12.1":
   version: 2.16.0
   resolution: "nan@npm:2.16.0"
@@ -23695,6 +23702,7 @@ __metadata:
     "@redwoodjs/forms": 3.1.1
     "@redwoodjs/router": 3.1.1
     "@redwoodjs/web": 3.1.1
+    mvp.css: ^1.12.0
     normalize.css: ^8.0.1
     prop-types: 15.8.1
     react: 17.0.2
