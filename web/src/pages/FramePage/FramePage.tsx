@@ -30,6 +30,7 @@ export const devices: {
       height: number
     }
     headerHeight: number
+    screenBorderRadius: number
     attribution: Attribution
     component: FC
     padding?: number
@@ -43,6 +44,7 @@ export const devices: {
       height: 852,
     },
     headerHeight: 54,
+    screenBorderRadius: 20,
     attribution: {
       imageName: 'iPhone 14 Pro vector',
       imageUrl:
@@ -64,6 +66,7 @@ export const devices: {
       height: 812,
     },
     headerHeight: 44,
+    screenBorderRadius: 20,
     attribution: {
       imageName: 'iPhone X frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -85,6 +88,7 @@ export const devices: {
       height: 667,
     },
     headerHeight: 40,
+    screenBorderRadius: 0,
     attribution: {
       imageName: 'iPhone 8 frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -106,6 +110,7 @@ export const devices: {
       height: 1024,
     },
     headerHeight: 20,
+    screenBorderRadius: 0,
     attribution: {
       imageName: 'iPad mini frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -127,6 +132,7 @@ export const devices: {
       height: 846,
     },
     headerHeight: 44,
+    screenBorderRadius: 10,
     attribution: {
       imageName: 'Galaxy Note 8 frame',
       imageUrl: 'https://github.com/marvelapp/devices.css',
@@ -228,7 +234,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                   height: `${device.headerHeight}px`,
                   backgroundColor: headerColour,
                   width: '100%',
-                  borderRadius: '20px 20px 0 0',
+                  borderRadius: `${device.screenBorderRadius}px ${device.screenBorderRadius}px 0 0`,
                 }}
               ></div>
             )}
@@ -245,7 +251,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
                 borderRadius:
                   displayMode === DisplayMode.Fullscreen
                     ? 'inherit'
-                    : '0 0 20px 20px',
+                    : `0 0 ${device.screenBorderRadius}px ${device.screenBorderRadius}px`,
                 backgroundColor: '#242424',
                 zIndex: -1,
                 // TODO: Fix shadows z-index and re-enable this
