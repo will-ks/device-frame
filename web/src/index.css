@@ -1,27 +1,3 @@
-:root {
-  --background-body: #fff;
-  --background-body-dark: #221d29;
-  --background: #efefef;
-  --background-alt: #f7f7f7;
-  --selection: #9e9e9e;
-  --text-main: #363636;
-  --text-main-dark: #dbdbdb;
-  --text-bright: #000;
-  --text-muted: #70777f;
-  --links: #0076d1;
-  --links-dark: #41adff;
-  --focus: #0096bfab;
-  --border: #dbdbdb;
-  --code: #000;
-  --animation-duration: 0.1s;
-  --button-base: #d0cfcf;
-  --button-hover: #9b9b9b;
-  --form-placeholder: #949494;
-  --form-text: #1d1d1d;
-  --variable: #39a33c;
-  --highlight: #ff0;
-}
-
 #framed-site {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
@@ -37,6 +13,10 @@
 }
 
 /*mvp.css overrides*/
+:root {
+  --color-link: #0D5B9A;
+  --color-text-secondary: #585858;
+}
 input[type="text"], textarea, select, button {
   width: 100%;
 }
