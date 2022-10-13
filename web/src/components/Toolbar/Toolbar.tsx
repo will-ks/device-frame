@@ -38,7 +38,7 @@ const Toolbar: FC<{
                 formValues.displayMode !== DisplayMode.Fullscreen &&
                 formValues.themeColor !== DEFAULTS.themeColor &&
                 formValues.themeColor
-                  ? `${formValues.themeColor.trim()}/`
+                  ? `${encodeURIComponent(formValues.themeColor.trim())}/`
                   : ''
               }${formValues.url.trim()}`,
             })
