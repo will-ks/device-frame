@@ -6,8 +6,6 @@ import Toolbar from 'src/components/Toolbar/Toolbar'
 import BaseLayout from 'src/layouts/BaseLayout/BaseLayout'
 import { DEFAULTS, DisplayMode } from 'src/pages/FramePage/FramePage'
 
-import githubIcon from './GitHub-Mark-64px.png'
-
 export type Attribution = {
   authorName: string
   authorUrl: string
@@ -51,7 +49,10 @@ const DeviceLayout: FC<{
         }}
       >
         <nav style={{ alignItems: 'flex-start' }}>
-          <details open={url === DEFAULTS.url} style={{ margin: 0 }}>
+          <details
+            open={url === DEFAULTS.url}
+            style={{ margin: 0, backgroundColor: '#fff' }}
+          >
             <summary>Options</summary>
             <Toolbar
               url={url}
@@ -61,13 +62,6 @@ const DeviceLayout: FC<{
               themeColor={themeColor}
             />
           </details>
-          <a href={'https://github.com/will-ks/device-frame'}>
-            <img
-              alt="Github"
-              src={githubIcon}
-              style={{ width: '2rem', margin: 0 }}
-            />
-          </a>
         </nav>
       </header>
       <main style={{ height: '100vh', width: '100vw', padding: 0 }}>
