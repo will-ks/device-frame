@@ -31,3 +31,7 @@
 #framed-site::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+* {
+  box-sizing: border-box;
+}
