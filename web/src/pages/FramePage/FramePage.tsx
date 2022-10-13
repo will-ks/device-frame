@@ -256,10 +256,6 @@ const FramePage: FC<{ path: string }> = ({ path }) => {
                       : 0
                   }px)`,
                   width: '100%',
-                  borderRadius:
-                    displayMode === DisplayMode.Fullscreen
-                      ? 'inherit'
-                      : `0 0 ${device.screenBorderRadius}px ${device.screenBorderRadius}px`,
                   backgroundColor: '#242424',
                   zIndex: -1,
                   // TODO: Fix shadows z-index and re-enable this
