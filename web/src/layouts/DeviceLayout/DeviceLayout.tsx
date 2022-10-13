@@ -99,7 +99,7 @@ const DeviceLayout: FC<{
               padding: 0,
             }}
           >
-            <figcaption>
+            <figcaption style={{ textShadow: '0 0 10px #fff' }}>
               <div>
                 {`"`}
                 <a href={attribution.imageUrl}>{attribution.imageName}</a>
