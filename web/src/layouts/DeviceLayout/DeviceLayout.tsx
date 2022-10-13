@@ -4,6 +4,7 @@ import { useWindowSize } from 'react-use'
 
 import Toolbar from 'src/components/Toolbar/Toolbar'
 import BaseLayout from 'src/layouts/BaseLayout/BaseLayout'
+import { DisplayMode } from 'src/pages/FramePage/FramePage'
 
 export type Attribution = {
   authorName: string
@@ -21,6 +22,8 @@ const DeviceLayout: FC<{
   attribution: Attribution
   url: string
   deviceId: string
+  displayMode: DisplayMode
+  themeColor: string
 }> = ({
   deviceScreenHeight,
   padding = 100,
@@ -28,6 +31,8 @@ const DeviceLayout: FC<{
   attribution,
   url,
   deviceId,
+  displayMode,
+  themeColor,
 }) => {
   const { height } = useWindowSize()
 
@@ -48,6 +53,8 @@ const DeviceLayout: FC<{
             url={url}
             deviceId={deviceId}
             style={{ backgroundColor: 'var(--color-bg)' }}
+            displayMode={displayMode}
+            themeColor={themeColor}
           />
         </details>
       </header>

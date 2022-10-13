@@ -1,4 +1,4 @@
-import { CSSProperties, FC } from 'react'
+import { CSSProperties, FC, useState } from 'react'
 
 import { Form, InputField, Label, SelectField } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
@@ -8,8 +8,13 @@ import { DEFAULTS, devices, DisplayMode } from 'src/pages/FramePage/FramePage'
 const Toolbar: FC<{
   url: string
   deviceId: string
+  displayMode: DisplayMode
+  themeColor: string
   style?: CSSProperties
-}> = ({ url, style, deviceId }) => {
+}> = ({ url, style, deviceId, displayMode, themeColor }) => {
+  const [showThemeColorInput, setShowThemeColorInput] = useState(
+    displayMode === DisplayMode.Standalone
+  )
   return (
     <section style={style}>
       <Form<{
@@ -31,7 +36,7 @@ const Toolbar: FC<{
                   : ''
               }${
                 formValues.displayMode !== DisplayMode.Fullscreen &&
-                formValues.themeColor !== DEFAULTS.headerColour &&
+                formValues.themeColor !== DEFAULTS.themeColor &&
                 formValues.themeColor
                   ? `${formValues.themeColor.trim()}/`
                   : ''
@@ -51,12 +56,26 @@ const Toolbar: FC<{
           ))}
         </SelectField>
         <Label name={'displayMode'}>Display mode</Label>
-        <SelectField name={'displayMode'}>
+        <SelectField
+          name={'displayMode'}
+          defaultValue={displayMode}
+          onChange={(e) =>
+            setShowThemeColorInput(e.target.value === DisplayMode.Standalone)
+          }
+        >
           <option value={DisplayMode.Fullscreen}>Fullscreen</option>
           <option value={DisplayMode.Standalone}>Standalone</option>
         </SelectField>
-        <Label name={'themeColor'}>Theme color</Label>
-        <InputField type={'text'} name={'themeColor'} />
+        {showThemeColorInput && (
+          <>
+            <Label name={'themeColor'}>Theme color</Label>
+            <InputField
+              type={'text'}
+              name={'themeColor'}
+              defaultValue={themeColor}
+            />
+          </>
+        )}
         <button type={'submit'}>OK</button>
       </Form>
     </section>

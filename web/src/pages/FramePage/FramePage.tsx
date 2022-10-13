@@ -148,12 +148,12 @@ export const devices: {
 export const DEFAULTS = {
   device: 'iphone',
   displayMode: DisplayMode.Fullscreen,
-  headerColour: '#EFEFF4',
+  themeColor: '#EFEFF4',
 }
 
 const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
   const { search, hash } = useLocation()
-  const { url, displayMode, headerColour, device } = pipeNow(
+  const { url, displayMode, themeColor, device } = pipeNow(
     routeGlob.split('/'),
     ([firstGlobPart, ...routeGlob]) => {
       const deviceFromRoute =
@@ -186,17 +186,17 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
       }
     },
     ({ routeGlob: [firstGlobPart, ...routeGlob], ...rest }) => {
-      const headerColourFromRoute =
+      const themeColorFromRoute =
         isValidColor(decodeURIComponent(firstGlobPart)) &&
         decodeURIComponent(firstGlobPart)
       return {
-        ...(headerColourFromRoute
+        ...(themeColorFromRoute
           ? {
-              headerColour: headerColourFromRoute,
+              themeColor: themeColorFromRoute,
               routeGlob,
             }
           : {
-              headerColour: DEFAULTS.headerColour,
+              themeColor: DEFAULTS.themeColor,
               routeGlob: [firstGlobPart, ...routeGlob],
             }),
         ...rest,
@@ -224,6 +224,8 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
       padding={device.padding}
       url={url}
       deviceId={device.id}
+      displayMode={displayMode}
+      themeColor={themeColor}
     >
       {device.component({
         children: (
@@ -232,7 +234,7 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
               <div
                 style={{
                   height: `${device.headerHeight}px`,
-                  backgroundColor: headerColour,
+                  backgroundColor: themeColor,
                   width: '100%',
                   borderRadius: `${device.screenBorderRadius}px ${device.screenBorderRadius}px 0 0`,
                 }}
