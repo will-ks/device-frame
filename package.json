@@ -21,5 +21,9 @@
   "prisma": {
     "seed": "yarn rw exec seed"
   },
+  "scripts": {
+    "dev": "yarn rw dev",
+    "test": "yarn test"
+  },
   "packageManager": "yarn@3.2.3"
 }
