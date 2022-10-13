@@ -4,7 +4,7 @@ import { useWindowSize } from 'react-use'
 
 import Toolbar from 'src/components/Toolbar/Toolbar'
 import BaseLayout from 'src/layouts/BaseLayout/BaseLayout'
-import { DisplayMode } from 'src/pages/FramePage/FramePage'
+import { DEFAULTS, DisplayMode } from 'src/pages/FramePage/FramePage'
 
 export type Attribution = {
   authorName: string
@@ -47,7 +47,7 @@ const DeviceLayout: FC<{
           textAlign: 'left',
         }}
       >
-        <details style={{ margin: 0 }}>
+        <details open={url === DEFAULTS.url} style={{ margin: 0 }}>
           <summary>Options</summary>
           <Toolbar
             url={url}

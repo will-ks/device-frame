@@ -14,7 +14,8 @@ import FramePage from 'src/pages/FramePage/FramePage'
 const Routes = () => {
   return (
     <Router>
-      <Route path="/{routeGlob...}" page={FramePage} name="frame" />
+      <Route path="/{path...}" page={FramePage} name="frame" />
+      <Route path="/" page={FramePage} name="default" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )

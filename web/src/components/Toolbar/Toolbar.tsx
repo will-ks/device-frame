@@ -26,7 +26,7 @@ const Toolbar: FC<{
         onSubmit={(formValues) =>
           navigate(
             routes.frame({
-              routeGlob: `${
+              path: `${
                 formValues.deviceId !== DEFAULTS.device
                   ? `${formValues.deviceId}/`
                   : ''

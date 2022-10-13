@@ -14,7 +14,6 @@ import DeviceLayout, {
   Attribution,
 } from 'src/layouts/DeviceLayout/DeviceLayout'
 import { isValidColor, isValidUrl } from 'src/lib/helpers'
-import NotFoundPage from 'src/pages/NotFoundPage/NotFoundPage'
 
 export enum DisplayMode {
   Fullscreen = 'fullscreen',
@@ -149,64 +148,73 @@ export const DEFAULTS = {
   device: 'iphone',
   displayMode: DisplayMode.Fullscreen,
   themeColor: '#EFEFF4',
+  url: 'https://example.com',
 }
 
-const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
+const FramePage: FC<{ path: string }> = ({ path }) => {
   const { search, hash } = useLocation()
   const { url, displayMode, themeColor, device } = pipeNow(
-    routeGlob.split('/'),
-    ([firstGlobPart, ...routeGlob]) => {
-      const deviceFromRoute =
-        Object.keys(devices).includes(firstGlobPart) && devices[firstGlobPart]
-      return deviceFromRoute
+    path.split('/'),
+    ([firstPathSegment, ...restOfPathSegments]) => {
+      const deviceFromPath =
+        Object.keys(devices).includes(firstPathSegment) &&
+        devices[firstPathSegment]
+      return deviceFromPath
         ? {
-            device: deviceFromRoute,
-            routeGlob,
+            device: deviceFromPath,
+            restOfPathSegments,
           }
         : {
             device: devices[DEFAULTS.device],
-            routeGlob: [firstGlobPart, ...routeGlob],
+            restOfPathSegments: [firstPathSegment, ...restOfPathSegments],
           }
     },
-    ({ routeGlob: [firstGlobPart, ...routeGlob], ...rest }) => {
-      const displayModeFromRoute =
-        Object.values(DisplayMode).includes(firstGlobPart as DisplayMode) &&
-        (firstGlobPart as DisplayMode)
+    ({
+      restOfPathSegments: [firstPathSegment, ...restOfPathSegments],
+      ...rest
+    }) => {
+      const displayModeFromPath =
+        Object.values(DisplayMode).includes(firstPathSegment as DisplayMode) &&
+        (firstPathSegment as DisplayMode)
       return {
-        ...(displayModeFromRoute
+        ...(displayModeFromPath
           ? {
-              displayMode: displayModeFromRoute,
-              routeGlob,
+              displayMode: displayModeFromPath,
+              restOfPathSegments,
             }
           : {
               displayMode: DEFAULTS.displayMode,
-              routeGlob: [firstGlobPart, ...routeGlob],
+              restOfPathSegments: [firstPathSegment, ...restOfPathSegments],
             }),
         ...rest,
       }
     },
-    ({ routeGlob: [firstGlobPart, ...routeGlob], ...rest }) => {
-      const themeColorFromRoute =
-        isValidColor(decodeURIComponent(firstGlobPart)) &&
-        decodeURIComponent(firstGlobPart)
+    ({
+      restOfPathSegments: [firstPathSegment, ...restOfPathSegments],
+      ...rest
+    }) => {
+      const themeColorFromPath =
+        isValidColor(decodeURIComponent(firstPathSegment)) &&
+        decodeURIComponent(firstPathSegment)
       return {
-        ...(themeColorFromRoute
+        ...(themeColorFromPath
           ? {
-              themeColor: themeColorFromRoute,
-              routeGlob,
+              themeColor: themeColorFromPath,
+              restOfPathSegments,
             }
           : {
               themeColor: DEFAULTS.themeColor,
-              routeGlob: [firstGlobPart, ...routeGlob],
+              restOfPathSegments: [firstPathSegment, ...restOfPathSegments],
             }),
         ...rest,
       }
     },
-    ({ routeGlob, ...rest }) => {
+    ({ restOfPathSegments, ...rest }) => {
+      const urlFromPath = restOfPathSegments.join('/')
       return {
-        url: isValidUrl(routeGlob.join('/'))
-          ? `${routeGlob.join('/')}${search ?? ''}${hash ?? ''}`
-          : undefined,
+        url: !urlFromPath
+          ? DEFAULTS.url
+          : `${restOfPathSegments.join('/')}${search ?? ''}${hash ?? ''}`,
         ...rest,
       }
     }
@@ -214,9 +222,6 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
 
   const [loadingTookTooLong] = useTimeout(4_000)
 
-  if (!url) {
-    return <NotFoundPage />
-  }
   return (
     <DeviceLayout
       deviceScreenHeight={device.logicalSize.height}
@@ -227,60 +232,66 @@ const FramePage: FC<{ routeGlob: string }> = ({ routeGlob }) => {
       displayMode={displayMode}
       themeColor={themeColor}
     >
-      {device.component({
-        children: (
-          <>
-            {displayMode !== DisplayMode.Fullscreen && (
-              <div
+      {isValidUrl(url) ? (
+        device.component({
+          children: (
+            <>
+              {displayMode !== DisplayMode.Fullscreen && (
+                <div
+                  style={{
+                    height: `${device.headerHeight}px`,
+                    backgroundColor: themeColor,
+                    width: '100%',
+                    borderRadius: `${device.screenBorderRadius}px ${device.screenBorderRadius}px 0 0`,
+                  }}
+                ></div>
+              )}
+              <iframe
+                title={'Framed site'}
+                id={'framed-site'}
                 style={{
-                  height: `${device.headerHeight}px`,
-                  backgroundColor: themeColor,
+                  height: `calc(100% - ${
+                    displayMode === DisplayMode.Standalone
+                      ? device.headerHeight
+                      : 0
+                  }px)`,
                   width: '100%',
-                  borderRadius: `${device.screenBorderRadius}px ${device.screenBorderRadius}px 0 0`,
+                  borderRadius:
+                    displayMode === DisplayMode.Fullscreen
+                      ? 'inherit'
+                      : `0 0 ${device.screenBorderRadius}px ${device.screenBorderRadius}px`,
+                  backgroundColor: '#242424',
+                  zIndex: -1,
+                  // TODO: Fix shadows z-index and re-enable this
+                  // boxShadow: darkMode
+                  //   ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
+                  //   : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
                 }}
-              ></div>
-            )}
-            <iframe
-              title={'Framed site'}
-              id={'framed-site'}
-              style={{
-                height: `calc(100% - ${
-                  displayMode === DisplayMode.Standalone
-                    ? device.headerHeight
-                    : 0
-                }px)`,
-                width: '100%',
-                borderRadius:
-                  displayMode === DisplayMode.Fullscreen
-                    ? 'inherit'
-                    : `0 0 ${device.screenBorderRadius}px ${device.screenBorderRadius}px`,
-                backgroundColor: '#242424',
-                zIndex: -1,
-                // TODO: Fix shadows z-index and re-enable this
-                // boxShadow: darkMode
-                //   ? '-31px 31px 62px #1c1822, 31px -31px 62px #282230'
-                //   : '-31px 31px 62px #d4d4d4, 31px -31px 62px #ffffff',
-              }}
-              src={`${url}${search ?? ''}${hash ?? ''}`}
-            />
-            {loadingTookTooLong() && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  textAlign: 'center',
-                  width: '100%',
-                  color: 'var(--text-main-dark)',
-                  zIndex: -2,
-                }}
-              >
-                Seems like the iframe may be having trouble loading. Check the
-                developer console.
-              </div>
-            )}
-          </>
-        ),
-      })}
+                src={`${url}${search ?? ''}${hash ?? ''}`}
+              />
+              {loadingTookTooLong() && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    textAlign: 'center',
+                    width: '100%',
+                    color: 'var(--text-main-dark)',
+                    zIndex: -2,
+                  }}
+                >
+                  Seems like the iframe may be having trouble loading. Check the
+                  developer console.
+                </div>
+              )}
+            </>
+          ),
+        })
+      ) : (
+        <main>
+          <strong>Invalid url</strong>
+        </main>
+      )}
     </DeviceLayout>
   )
 }
