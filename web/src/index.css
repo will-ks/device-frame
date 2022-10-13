@@ -35,3 +35,8 @@
 * {
   box-sizing: border-box;
 }
+
+/*mvp.css overrides*/
+input[type="text"], textarea, select, button {
+  width: 100%;
+}
