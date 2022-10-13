@@ -31,7 +31,3 @@
 #framed-site::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-
-footer, header, main {
-  padding: 0 /* Override mvp.css padding */
-}

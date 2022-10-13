@@ -1,9 +1,7 @@
-type BaseLayoutProps = {
-  children?: React.ReactNode
-}
+import { CSSProperties, FC } from 'react'
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
-  return <>{children}</>
+const BaseLayout: FC<{ style?: CSSProperties }> = ({ children, style }) => {
+  return <div style={style}>{children}</div>
 }
 
 export default BaseLayout

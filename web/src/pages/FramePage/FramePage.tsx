@@ -148,7 +148,7 @@ export const DEFAULTS = {
   device: 'iphone',
   displayMode: DisplayMode.Fullscreen,
   themeColor: '#EFEFF4',
-  url: 'https://example.com',
+  url: 'https://deviceframe.com/demo',
 }
 
 const FramePage: FC<{ path: string }> = ({ path }) => {
@@ -288,7 +288,7 @@ const FramePage: FC<{ path: string }> = ({ path }) => {
           ),
         })
       ) : (
-        <main>
+        <main style={{ padding: 0 }}>
           <strong>Invalid url</strong>
         </main>
       )}

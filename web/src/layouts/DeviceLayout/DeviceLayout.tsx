@@ -45,6 +45,7 @@ const DeviceLayout: FC<{
           top: '0.1rem',
           left: '0.5rem',
           textAlign: 'left',
+          padding: 0,
         }}
       >
         <details open={url === DEFAULTS.url} style={{ margin: 0 }}>
@@ -58,7 +59,7 @@ const DeviceLayout: FC<{
           />
         </details>
       </header>
-      <main style={{ height: '100vh', width: '100vw' }}>
+      <main style={{ height: '100vh', width: '100vw', padding: 0 }}>
         <figure
           style={{
             width: '100%',
@@ -90,6 +91,7 @@ const DeviceLayout: FC<{
               position: 'absolute',
               bottom: '0.1rem',
               right: '0.5rem',
+              padding: 0,
             }}
           >
             <figcaption>
