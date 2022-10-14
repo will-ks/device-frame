@@ -224,7 +224,7 @@ const FramePage: FC<{ path: string }> = ({ path }) => {
 
   return (
     <DeviceLayout
-      deviceScreenHeight={device.logicalSize.height}
+      deviceScreenLogicalSize={device.logicalSize}
       attribution={device.attribution}
       padding={device.padding}
       url={url}

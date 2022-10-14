@@ -15,6 +15,10 @@ const DemoPage = () => {
         </h2>
         <h3>Use the options to the left to set up your preview.</h3>
         <p>URLs are shareable.</p>
+        <p>
+          {`If the page is viewed on a mobile device, it'll just redirect to your
+          site.`}
+        </p>
       </header>
       <main style={{ textAlign: 'center' }}></main>
     </BaseLayout>

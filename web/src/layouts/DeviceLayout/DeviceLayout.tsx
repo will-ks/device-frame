@@ -17,7 +17,7 @@ export type Attribution = {
 }
 
 const DeviceLayout: FC<{
-  deviceScreenHeight: number
+  deviceScreenLogicalSize: { height: number; width: number }
   padding?: number
   attribution: Attribution
   url: string
@@ -25,7 +25,7 @@ const DeviceLayout: FC<{
   displayMode: DisplayMode
   themeColor: string
 }> = ({
-  deviceScreenHeight,
+  deviceScreenLogicalSize,
   padding = 100,
   children,
   attribution,
@@ -34,7 +34,10 @@ const DeviceLayout: FC<{
   displayMode,
   themeColor,
 }) => {
-  const { height } = useWindowSize()
+  const { height, width } = useWindowSize()
+  if (width <= deviceScreenLogicalSize.width + 15 && url !== DEFAULTS.url) {
+    location.replace(url)
+  }
 
   return (
     <BaseLayout>
@@ -83,7 +86,9 @@ const DeviceLayout: FC<{
           >
             <div
               style={{
-                transform: `scale(${(height - padding) / deviceScreenHeight})`,
+                transform: `scale(${
+                  (height - padding) / deviceScreenLogicalSize.height
+                })`,
               }}
               id={'device-frame'}
             >
