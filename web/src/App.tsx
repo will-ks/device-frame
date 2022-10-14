@@ -9,11 +9,11 @@ import './index.css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
-    <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
+    <RedwoodProvider titleTemplate="%AppTitle">
       <RedwoodApolloProvider>
         <MetaTags
           title="Device Frame"
-          description="Preview your website in a device frame"
+          description="Preview and share what your site looks like in a mobile device frame."
         />
         <Routes />
       </RedwoodApolloProvider>
