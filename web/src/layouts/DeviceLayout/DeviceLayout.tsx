@@ -57,13 +57,18 @@ const DeviceLayout: FC<{
           width: '100%',
         }}
       >
-        <nav style={{ alignItems: 'flex-start' }}>
+        <nav style={{ alignItems: 'flex-start', padding: '1rem 1rem 0 1rem' }}>
           <details open={url === DEFAULTS.url} style={{ margin: 0 }}>
-            <summary>Options</summary>
+            <summary style={{ backgroundColor: 'var(--color-bg)' }}>
+              Options
+            </summary>
             <Toolbar
               url={url}
               deviceId={deviceId}
-              style={{ backgroundColor: 'var(--color-bg)' }}
+              style={{
+                backgroundColor: 'var(--color-bg)',
+                borderRadius: 'var(--border-radius)',
+              }}
               displayMode={displayMode}
               themeColor={themeColor}
             />
