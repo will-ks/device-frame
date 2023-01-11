@@ -19,6 +19,19 @@ const DemoPage = () => {
           {`If the page is viewed on a mobile device, it'll just redirect to your
           site.`}
         </p>
+        <p>The framed site must:</p>
+        <ul>
+          <li>
+            Not use the <code>X-Frame-Options</code> HTTP response header
+          </li>
+          <li>
+            {`Either not use, or include this site's address in the `}
+            <code>frame-ancestors</code>
+            {` policy in its `}
+            <code>Content-Security-Policy</code> HTTP response header.
+          </li>
+        </ul>
+        <p>{`Check your devtools console if things don't seem to be working right.`}</p>
       </header>
       <main style={{ textAlign: 'center' }}></main>
     </BaseLayout>

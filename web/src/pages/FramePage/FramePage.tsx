@@ -148,7 +148,7 @@ export const DEFAULTS = {
   device: 'iphone',
   displayMode: DisplayMode.Fullscreen,
   themeColor: '#EFEFF4',
-  url: 'https://deviceframe.com/demo',
+  url: new URL('demo', window.location.origin).toString(),
 }
 
 const FramePage: FC<{ path: string }> = ({ path }) => {
