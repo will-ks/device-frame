@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { useWindowSize } from 'react-use'
 
@@ -35,7 +35,11 @@ const DeviceLayout: FC<{
   themeColor,
 }) => {
   const { height, width } = useWindowSize()
-  if (width <= deviceScreenLogicalSize.width + 15 && url !== DEFAULTS.url) {
+  const [initialWidth] = useState(width)
+  if (
+    initialWidth <= deviceScreenLogicalSize.width + 15 &&
+    url !== DEFAULTS.url
+  ) {
     location.replace(url)
   }
 
