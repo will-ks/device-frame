@@ -114,9 +114,11 @@ const DeviceLayout: FC<{
             style={{
               fontSize: 'x-small',
               position: 'absolute',
-              bottom: '0.1rem',
-              right: '0.5rem',
-              padding: 0,
+              bottom: '0rem',
+              width: '100%',
+              textAlign: 'right',
+              padding: '0.5rem',
+              backgroundColor: 'var(--color-bg)',
             }}
           >
             <figcaption style={{ textShadow: '0 0 10px #fff' }}>
