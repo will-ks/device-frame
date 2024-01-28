@@ -57,7 +57,14 @@ const DeviceLayout: FC<{
           width: '100%',
         }}
       >
-        <nav style={{ alignItems: 'flex-start', padding: '1rem 1rem 0 1rem' }}>
+        <nav
+          style={{
+            alignItems: 'flex-start',
+            padding: '1rem 1rem 0 1rem',
+            position: 'absolute',
+            marginBottom: 0,
+          }}
+        >
           <details open={url === DEFAULTS.url} style={{ margin: 0 }}>
             <summary style={{ backgroundColor: 'var(--color-bg)' }}>
               Options
@@ -73,14 +80,22 @@ const DeviceLayout: FC<{
               themeColor={themeColor}
             />
           </details>
-          <a href={'https://github.com/will-ks/device-frame'}>
-            <img
-              alt="Github"
-              src={githubIcon}
-              style={{ width: '2rem', margin: 0 }}
-            />
-          </a>
         </nav>
+        <a
+          href={'https://github.com/will-ks/device-frame'}
+          style={{
+            position: 'absolute',
+            right: '1rem',
+            top: '1rem',
+            backgroundColor: 'var(--color-bg)',
+          }}
+        >
+          <img
+            alt="Github"
+            src={githubIcon}
+            style={{ width: '2rem', margin: 0 }}
+          />
+        </a>
       </header>
       <main style={{ height: '100vh', width: '100vw', padding: 0 }}>
         <figure
